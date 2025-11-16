@@ -16,7 +16,9 @@ app.use(
       "https://whats-app-clone-coral-five.vercel.app",
       "http://localhost:3000",
     ],
-    credentials: true, // allow cookies
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"],
   })
 );
 

@@ -4,14 +4,15 @@ import User from "../Model/user.js";
 export const getCurrentUser = async (req, res) => {
   try {
     const token = req.cookies.authToken;
+    console.log(token);
+    
     if (!token) return res.json({ message: "Not authenticated" });
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
     const user = await User.findById(decoded.id)
       .select("-password")
-      .populate("friends", "name email profilePic"); 
-      // 👆 populate only selected fields
+      .populate("friends"); 
 
     if (!user) return res.status(404).json({ message: "User not found" });
 

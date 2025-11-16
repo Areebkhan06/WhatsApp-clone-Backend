@@ -168,28 +168,6 @@ export const createAccount = async (req, res) => {
   }
 };
 
-export const addFriend = async (req, res) => {
-  try {
-    const userId = req.userId; // logged-in user
-    const friendId = "6917848135df8cb633d48b64";
-    // Validate ObjectId
-    if (!mongoose.Types.ObjectId.isValid(friendId)) {
-      return res.status(400).json({ error: "Invalid friend ID" });
-    }
-
-    await User.findByIdAndUpdate(
-      userId,
-      { $addToSet: { friends: friendId } }, // add friend to array
-      { new: true }
-    );
-
-    res.json({ success: true, message: "Friend added successfully" });
-  } catch (err) {
-    console.log(err);
-    res.status(500).json({ error: "Failed to add friend" });
-  }
-};
-
 export const sendMessage = async (req, res) => {
   try {
     const userId = req.userId; // from middleware
